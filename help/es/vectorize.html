@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Vectorización a SVG · Lulumoy Studio</title>
+<style>
+:root { color-scheme: light dark; --acento: #2e7d32; --suave: #f3f8ee; --borde: #cfe3c0; }
+@media (prefers-color-scheme: dark) { :root { --acento: #8bd450; --suave: #1e261a; --borde: #3a4a30; } }
+body { font-family: "Segoe UI", system-ui, -apple-system, Roboto, Ubuntu, sans-serif; line-height: 1.55;
+       max-width: 860px; margin: 0 auto; padding: 1.5rem 1.25rem 3rem; }
+header { display: flex; align-items: center; gap: .75rem; border-bottom: 2px solid var(--acento); padding-bottom: .5rem; }
+header img { width: 44px; height: 44px; }
+header .marca { font-weight: 600; color: var(--acento); }
+nav { margin: .75rem 0 1.25rem; font-size: .95rem; }
+a { color: var(--acento); }
+h1 { font-size: 1.6rem; margin: 1rem 0 .5rem; }
+h2 { font-size: 1.2rem; margin-top: 1.6rem; color: var(--acento); }
+figure { background: var(--suave); border: 1px solid var(--borde); border-radius: 8px; margin: 1rem 0; padding: .6rem 1rem; }
+figure math { font-size: 1.2rem; overflow-x: auto; padding: .4rem 0; }
+figcaption { font-size: .95rem; }
+table { border-collapse: collapse; width: 100%; margin: .5rem 0; }
+th, td { border-bottom: 1px solid var(--borde); padding: .45rem .5rem; text-align: left; vertical-align: top; }
+th { color: var(--acento); }
+td:first-child { width: 34%; font-weight: 600; }
+.nota { border-left: 4px solid var(--acento); padding: .3rem .8rem; background: var(--suave); }
+ul.indice { columns: 2; padding-left: 1.2rem; }
+footer { margin-top: 2.5rem; font-size: .85rem; opacity: .75; }
+</style>
+</head>
+<body>
+<header><img src="../../assets/lulumoy_icon.png" alt=""/><span class="marca">Lulumoy Studio · Guía matemática</span></header>
+<nav><a href="index.html">← Índice</a></nav>
+<h1>Vectorización a SVG</h1>
+<p>Convierte la imagen en trazados vectoriales en blanco y negro: primero decide qué píxeles forman parte de las formas (binarización), después sigue sus contornos y por último los simplifica y los suaviza. Los pasos, en el orden en que se aplican, son los siguientes.</p>
+<h2>1. Resolución de trabajo y desenfoque</h2>
+<p>La imagen se pasa a grises de 8 bits y se amplía s veces (s = 1, 2 o 4) con interpolación bicúbica. Trabajar a mayor resolución sitúa los bordes con precisión de fracción de píxel, lo que mejora mucho las imágenes pequeñas. Si W·H·s² superaría 4·10<sup>7</sup> píxeles, s se reduce automáticamente. Después se aplica un desenfoque gaussiano de σ·s, si σ &gt; 0. Todos los parámetros en píxeles se expresan en píxeles de la imagen original; internamente se multiplican por s.</p>
+<h2>2. Binarización</h2>
+<figure><math display="block"><mrow><mi>F</mi><mo>=</mo><mrow><mo>{</mo><mi>p</mi><mo>:</mo><mrow><mi>I</mi><mrow><mo>(</mo><mi>p</mi><mo>)</mo></mrow></mrow><mo>≤</mo><mrow><mi>T</mi><mrow><mo>(</mo><mi>p</mi><mo>)</mo></mrow></mrow><mo>}</mo></mrow></mrow></math><figcaption>F es el conjunto de píxeles que se trazan (las formas oscuras). Con "Trazar las zonas claras" se usa el complementario.</figcaption></figure>
+<p><b>Fijo</b>: T es el mismo para toda la imagen, el nivel elegido (0–255).</p>
+<figure><math display="block"><mrow><msup><mi>T</mi><mo>∗</mo></msup><mo>=</mo><munder><mi mathvariant="normal">arg max</mi><mi>T</mi></munder><mspace width="0.3em"/><mrow><msub><mi>ω</mi><mn>0</mn></msub><mrow><mo>(</mo><mi>T</mi><mo>)</mo></mrow></mrow><mrow><msub><mi>ω</mi><mn>1</mn></msub><mrow><mo>(</mo><mi>T</mi><mo>)</mo></mrow></mrow><msup><mrow><mo>[</mo><mrow><msub><mi>μ</mi><mn>0</mn></msub><mrow><mo>(</mo><mi>T</mi><mo>)</mo></mrow></mrow><mo>−</mo><mrow><msub><mi>μ</mi><mn>1</mn></msub><mrow><mo>(</mo><mi>T</mi><mo>)</mo></mrow></mrow><mo>]</mo></mrow><mn>2</mn></msup></mrow></math><figcaption><b>Automático (Otsu)</b>: elige el T que maximiza la varianza entre las dos clases del histograma (fondo y formas). ω<sub>0</sub>, ω<sub>1</sub> son las fracciones de píxeles a cada lado de T y μ<sub>0</sub>, μ<sub>1</sub> sus medias. Funciona bien cuando el histograma tiene dos picos claros.</figcaption></figure>
+<figure><math display="block"><mrow><mrow><mi>T</mi><mrow><mo>(</mo><mi>p</mi><mo>)</mo></mrow></mrow><mo>=</mo><munder><mo>∑</mo><mrow><mi>q</mi><mo>∈</mo><mrow><mi>B</mi><mrow><mo>(</mo><mi>p</mi><mo>)</mo></mrow></mrow></mrow></munder><mrow><mi>g</mi><mrow><mo>(</mo><mrow><mi>q</mi><mo>−</mo><mi>p</mi></mrow><mo>)</mo></mrow></mrow><mrow><mi>I</mi><mrow><mo>(</mo><mi>q</mi><mo>)</mo></mrow></mrow><mo>−</mo><mi>C</mi></mrow></math><figcaption><b>Adaptativo</b>: T varía de un punto a otro; es la media local ponderada con una ventana gaussiana g de b×b píxeles, menos la constante C. Corrige la iluminación desigual y las sombras de los escaneos. Un píxel se traza si es al menos C niveles más oscuro que su entorno.</figcaption></figure>
+<h2>3. Limpieza de bordes</h2>
+<figure><math display="block"><mrow><msup><mi>F</mi><mo>′</mo></msup><mo>=</mo><mrow><mo>(</mo><mi>F</mi><mo>∘</mo><mi>D</mi><mo>)</mo></mrow><mo>•</mo><mi>D</mi></mrow></math><figcaption>Apertura y después cierre morfológicos con un disco D de diámetro 2r + 1 píxeles: la apertura elimina manchas y salientes de radio menor que r, y el cierre tapa huecos y grietas de ese tamaño.</figcaption></figure>
+<h2>4. Contornos</h2>
+<p>cv::findContours sigue el borde de cada forma y de cada agujero (algoritmo de Suzuki y Abe). OpenCV devuelve los centros de los píxeles del borde, así que cada contorno se desplaza medio píxel hacia el fondo para que pase por el borde real de los píxeles. Sin este paso las formas adelgazarían un píxel y las líneas de 1 px desaparecerían.</p>
+<figure><math display="block"><mrow><mi>A</mi><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mrow><mo>|</mo><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><mrow><mo>(</mo><msub><mi>x</mi><mi>i</mi></msub><msub><mi>y</mi><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>x</mi><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msub><msub><mi>y</mi><mi>i</mi></msub><mo>)</mo></mrow><mo>|</mo></mrow></mrow></math><figcaption>Área del contorno (fórmula del área de Gauss). Las formas y agujeros con A menor que "Ignorar manchas" se descartan; si se descarta una forma, también sus agujeros.</figcaption></figure>
+<h2>5. Simplificación</h2>
+<figure><math display="block"><mrow><mrow><mi>d</mi><mrow><mo>(</mo><mi>P</mi><mo>)</mo></mrow></mrow><mo>=</mo><mfrac><mrow><mo>|</mo><mrow><mo>(</mo><mi>B</mi><mo>−</mo><mi>A</mi><mo>)</mo></mrow><mo>×</mo><mrow><mo>(</mo><mi>P</mi><mo>−</mo><mi>A</mi><mo>)</mo></mrow><mo>|</mo></mrow><mrow><mo>‖</mo><mi>B</mi><mo>−</mo><mi>A</mi><mo>‖</mo></mrow></mfrac></mrow></math><figcaption>Algoritmo de Ramer–Douglas–Peucker (cv::approxPolyDP): entre dos vértices A y B, si el punto intermedio más alejado del segmento AB está a una distancia d &gt; ε, se conserva y se repite a cada lado; si no, todo el tramo se sustituye por el segmento. Ninguna parte del contorno simplificado se aleja más de ε del original. Si una forma fina quedara con menos de 3 vértices, ε se reduce a la mitad hasta que no ocurra.</figcaption></figure>
+<h2>6. Curvas y esquinas</h2>
+<figure><math display="block"><mrow><msub><mi>θ</mi><mi>i</mi></msub><mo>=</mo><mi mathvariant="normal">arccos</mi><mfrac><mrow><mrow><mo>(</mo><msub><mi>V</mi><mi>i</mi></msub><mo>−</mo><msub><mi>V</mi><mrow><mi>i</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>)</mo></mrow><mo>·</mo><mrow><mo>(</mo><msub><mi>V</mi><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>V</mi><mi>i</mi></msub><mo>)</mo></mrow></mrow><mrow><mrow><mo>‖</mo><msub><mi>V</mi><mi>i</mi></msub><mo>−</mo><msub><mi>V</mi><mrow><mi>i</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>‖</mo></mrow><mrow><mo>‖</mo><msub><mi>V</mi><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>V</mi><mi>i</mi></msub><mo>‖</mo></mrow></mrow></mfrac></mrow></math><figcaption>Ángulo de giro en cada vértice V<sub>i</sub> del polígono simplificado: 0° si el contorno sigue recto, 180° si vuelve sobre sí mismo.</figcaption></figure>
+<figure><math display="block"><mrow><mrow><mi>B</mi><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow></mrow><mo>=</mo><msup><mrow><mo>(</mo><mn>1</mn><mo>−</mo><mi>t</mi><mo>)</mo></mrow><mn>2</mn></msup><msub><mi>M</mi><mrow><mi>i</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>+</mo><mn>2</mn><mrow><mo>(</mo><mn>1</mn><mo>−</mo><mi>t</mi><mo>)</mo></mrow><mi>t</mi><msub><mi>V</mi><mi>i</mi></msub><mo>+</mo><msup><mi>t</mi><mn>2</mn></msup><msub><mi>M</mi><mi>i</mi></msub><mo>,</mo><mspace width="1em"/><msub><mi>M</mi><mi>i</mi></msub><mo>=</mo><mfrac><mrow><msub><mi>V</mi><mi>i</mi></msub><mo>+</mo><msub><mi>V</mi><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow><mn>2</mn></mfrac><mo>,</mo><mspace width="1em"/><mi>t</mi><mo>∈</mo><mrow><mo>[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo>]</mo></mrow></mrow></math><figcaption>Con "Curvas suaves", el trazado pasa por los puntos medios M<sub>i</sub> de los lados y cada vértice V<sub>i</sub> con θ<sub>i</sub> ≤ θ<sub>esquina</sub> se usa como punto de control de una curva de Bézier cuadrática. En M<sub>i</sub> las dos curvas vecinas tienen la misma tangente (la dirección del lado), así que la unión es suave. Los vértices con θ<sub>i</sub> &gt; θ<sub>esquina</sub> se conservan como esquinas rectas.</figcaption></figure>
+<h2>7. Archivo SVG</h2>
+<p>Todos los contornos forman un único trazado negro con la regla de relleno par-impar (fill-rule="evenodd"): un punto está relleno si una semirrecta que parte de él corta el trazado un número impar de veces, por eso los agujeros quedan transparentes. Las coordenadas están en píxeles de la imagen original, con el píxel (i, j) ocupando el cuadrado [i, i+1]×[j, j+1], y se escriben con dos decimales. Los "nodos" que muestra el diálogo son los tramos (rectas y curvas) del trazado.</p>
+<h2>Parámetros</h2><table><thead><tr><th>Parámetro</th><th>Significado</th></tr></thead><tbody><tr><td>Método de umbral</td><td>Cómo se calcula T (paso 2).</td></tr><tr><td>Nivel de umbral (método fijo)</td><td>T del método fijo, de 0 a 255.</td></tr><tr><td>Tamaño de bloque en px (adaptativo)</td><td>b, lado de la ventana del método adaptativo (impar). Debe ser mayor que los trazos: unas 2–5 veces su grosor.</td></tr><tr><td>Constante C (adaptativo)</td><td>C, en niveles de gris. Más alto = solo se trazan los píxeles bastante más oscuros que su entorno (menos ruido).</td></tr><tr><td>Desenfoque previo (sigma, px)</td><td>σ del desenfoque previo (paso 1). Reduce el ruido y redondea los dientes de sierra.</td></tr><tr><td>Trazar las zonas claras (invertir)</td><td>Traza las zonas claras en vez de las oscuras.</td></tr><tr><td>Resolución de trabajo</td><td>s (paso 1).</td></tr><tr><td>Limpieza de bordes (px)</td><td>r del paso 3; 0 = sin limpieza.</td></tr><tr><td>Ignorar manchas menores de (px²)</td><td>Área mínima en px² (paso 4).</td></tr><tr><td>Simplificación (px)</td><td>ε del paso 5, en píxeles. 0 = sin simplificar: el SVG reproduce la imagen binarizada píxel a píxel.</td></tr><tr><td>Contorno</td><td>Polígonos o curvas de Bézier (paso 6).</td></tr><tr><td>Mantener esquinas de más de (grados)</td><td>θ<sub>esquina</sub> en grados (paso 6). 0 = todo esquinas (polígono); 180 = todo curvas.</td></tr><tr><td>Fondo blanco en el SVG</td><td>Añade un rectángulo blanco detrás del trazado; si no, el fondo es transparente.</td></tr></tbody></table>
+<p>Véase también: <a href="filter.morphology.html">Morfología</a>, <a href="interpolation.html">Interpolación y bordes</a></p>
+<footer>Lulumoy Studio · DonatellaTech · <a href="https://donatellatech.com/">donatellatech.com</a></footer>
+</body>
+</html>

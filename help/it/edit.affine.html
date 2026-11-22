@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Trasformazione affine (3 punti) · Lulumoy Studio</title>
+<style>
+:root { color-scheme: light dark; --acento: #2e7d32; --suave: #f3f8ee; --borde: #cfe3c0; }
+@media (prefers-color-scheme: dark) { :root { --acento: #8bd450; --suave: #1e261a; --borde: #3a4a30; } }
+body { font-family: "Segoe UI", system-ui, -apple-system, Roboto, Ubuntu, sans-serif; line-height: 1.55;
+       max-width: 860px; margin: 0 auto; padding: 1.5rem 1.25rem 3rem; }
+header { display: flex; align-items: center; gap: .75rem; border-bottom: 2px solid var(--acento); padding-bottom: .5rem; }
+header img { width: 44px; height: 44px; }
+header .marca { font-weight: 600; color: var(--acento); }
+nav { margin: .75rem 0 1.25rem; font-size: .95rem; }
+a { color: var(--acento); }
+h1 { font-size: 1.6rem; margin: 1rem 0 .5rem; }
+h2 { font-size: 1.2rem; margin-top: 1.6rem; color: var(--acento); }
+figure { background: var(--suave); border: 1px solid var(--borde); border-radius: 8px; margin: 1rem 0; padding: .6rem 1rem; }
+figure math { font-size: 1.2rem; overflow-x: auto; padding: .4rem 0; }
+figcaption { font-size: .95rem; }
+table { border-collapse: collapse; width: 100%; margin: .5rem 0; }
+th, td { border-bottom: 1px solid var(--borde); padding: .45rem .5rem; text-align: left; vertical-align: top; }
+th { color: var(--acento); }
+td:first-child { width: 34%; font-weight: 600; }
+.nota { border-left: 4px solid var(--acento); padding: .3rem .8rem; background: var(--suave); }
+ul.indice { columns: 2; padding-left: 1.2rem; }
+footer { margin-top: 2.5rem; font-size: .85rem; opacity: .75; }
+</style>
+</head>
+<body>
+<header><img src="../../assets/lulumoy_icon.png" alt=""/><span class="marca">Lulumoy Studio · Guida matematica</span></header>
+<nav><a href="index.html">← Indice</a></nav>
+<h1>Trasformazione affine (3 punti)</h1>
+<p>Trasformazione lineare più traslazione. Conserva le rette, il parallelismo e le proporzioni lungo una retta, ma non gli angoli né le distanze. Traslazione, rotazione, scala e taglio ne sono casi particolari.</p>
+<figure><math display="block"><mrow><mrow><mo>[</mo><mtable><mtr><mtd><msup><mi>x</mi><mo>′</mo></msup></mtd></mtr><mtr><mtd><msup><mi>y</mi><mo>′</mo></msup></mtd></mtr></mtable><mo>]</mo></mrow><mo>=</mo><mrow><mo>[</mo><mtable><mtr><mtd><msub><mi>a</mi><mn>11</mn></msub></mtd><mtd><msub><mi>a</mi><mn>12</mn></msub></mtd></mtr><mtr><mtd><msub><mi>a</mi><mn>21</mn></msub></mtd><mtd><msub><mi>a</mi><mn>22</mn></msub></mtd></mtr></mtable><mo>]</mo></mrow><mrow><mo>[</mo><mtable><mtr><mtd><mi>x</mi></mtd></mtr><mtr><mtd><mi>y</mi></mtd></mtr></mtable><mo>]</mo></mrow><mo>+</mo><mrow><mo>[</mo><mtable><mtr><mtd><msub><mi>t</mi><mn>1</mn></msub></mtd></mtr><mtr><mtd><msub><mi>t</mi><mn>2</mn></msub></mtd></mtr></mtable><mo>]</mo></mrow></mrow></math><figcaption>Sei incognite. Ogni coppia di punti (x<sub>k</sub>, y<sub>k</sub>) → (x′<sub>k</sub>, y′<sub>k</sub>) dà due equazioni lineari, quindi tre coppie determinano la trasformazione (cv::getAffineTransform risolve il sistema 6×6).</figcaption></figure>
+<figure><math display="block"><mrow><mrow><mo>(</mo><msub><mi>x</mi><mn>2</mn></msub><mo>−</mo><msub><mi>x</mi><mn>1</mn></msub><mo>)</mo></mrow><mrow><mo>(</mo><msub><mi>y</mi><mn>3</mn></msub><mo>−</mo><msub><mi>y</mi><mn>1</mn></msub><mo>)</mo></mrow><mo>−</mo><mrow><mo>(</mo><msub><mi>x</mi><mn>3</mn></msub><mo>−</mo><msub><mi>x</mi><mn>1</mn></msub><mo>)</mo></mrow><mrow><mo>(</mo><msub><mi>y</mi><mn>2</mn></msub><mo>−</mo><msub><mi>y</mi><mn>1</mn></msub><mo>)</mo></mrow><mo>≠</mo><mn>0</mn></mrow></math><figcaption>Il sistema ha soluzione unica se i tre punti non sono allineati (area del triangolo diversa da zero). Il programma richiede almeno 0,5 px² di area all'origine e alla destinazione.</figcaption></figure>
+<figure><math display="block"><mrow><mrow><msup><mi>I</mi><mo>′</mo></msup><mrow><mo>(</mo><msup><mi>x</mi><mo>′</mo></msup><mo>,</mo><msup><mi>y</mi><mo>′</mo></msup><mo>)</mo></mrow></mrow><mo>=</mo><mrow><mi>I</mi><mrow><mo>(</mo><mrow><msup><mi>A</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup><mrow><mo>(</mo><mrow><mo>[</mo><mtable><mtr><mtd><msup><mi>x</mi><mo>′</mo></msup></mtd></mtr><mtr><mtd><msup><mi>y</mi><mo>′</mo></msup></mtd></mtr></mtable><mo>]</mo></mrow><mo>−</mo><mi>t</mi><mo>)</mo></mrow></mrow><mo>)</mo></mrow></mrow></mrow></math><figcaption>cv::warpAffine percorre l'immagine di destinazione e cerca ogni pixel nell'origine con la trasformazione inversa; poiché cade tra i pixel, si interpola.</figcaption></figure>
+<p>I punti si scelgono con il mouse: per ogni coppia, prima l'origine (giallo) e poi la destinazione (ciano). Il risultato mantiene la dimensione dell'immagine.</p>
+<h2>Parametri</h2><table><thead><tr><th>Parametro</th><th>Significato</th></tr></thead><tbody><tr><td>Interpolazione</td><td>Come si calcola il valore in posizioni non intere.</td></tr><tr><td>Aree vuote</td><td>Valore dei pixel che cadono fuori dall'immagine originale.</td></tr></tbody></table>
+<p>Vedi anche: <a href="interpolation.html">Interpolazione e bordi</a>, <a href="edit.perspective.html">Trasformazione prospettica (4 punti)</a></p>
+<footer>Lulumoy Studio · DonatellaTech · <a href="https://donatellatech.com/">donatellatech.com</a></footer>
+</body>
+</html>

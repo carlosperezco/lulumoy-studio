@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Rotate · Lulumoy Studio</title>
+<style>
+:root { color-scheme: light dark; --acento: #2e7d32; --suave: #f3f8ee; --borde: #cfe3c0; }
+@media (prefers-color-scheme: dark) { :root { --acento: #8bd450; --suave: #1e261a; --borde: #3a4a30; } }
+body { font-family: "Segoe UI", system-ui, -apple-system, Roboto, Ubuntu, sans-serif; line-height: 1.55;
+       max-width: 860px; margin: 0 auto; padding: 1.5rem 1.25rem 3rem; }
+header { display: flex; align-items: center; gap: .75rem; border-bottom: 2px solid var(--acento); padding-bottom: .5rem; }
+header img { width: 44px; height: 44px; }
+header .marca { font-weight: 600; color: var(--acento); }
+nav { margin: .75rem 0 1.25rem; font-size: .95rem; }
+a { color: var(--acento); }
+h1 { font-size: 1.6rem; margin: 1rem 0 .5rem; }
+h2 { font-size: 1.2rem; margin-top: 1.6rem; color: var(--acento); }
+figure { background: var(--suave); border: 1px solid var(--borde); border-radius: 8px; margin: 1rem 0; padding: .6rem 1rem; }
+figure math { font-size: 1.2rem; overflow-x: auto; padding: .4rem 0; }
+figcaption { font-size: .95rem; }
+table { border-collapse: collapse; width: 100%; margin: .5rem 0; }
+th, td { border-bottom: 1px solid var(--borde); padding: .45rem .5rem; text-align: left; vertical-align: top; }
+th { color: var(--acento); }
+td:first-child { width: 34%; font-weight: 600; }
+.nota { border-left: 4px solid var(--acento); padding: .3rem .8rem; background: var(--suave); }
+ul.indice { columns: 2; padding-left: 1.2rem; }
+footer { margin-top: 2.5rem; font-size: .85rem; opacity: .75; }
+</style>
+</head>
+<body>
+<header><img src="../../assets/lulumoy_icon.png" alt=""/><span class="marca">Lulumoy Studio · Mathematical guide</span></header>
+<nav><a href="index.html">← Contents</a></nav>
+<h1>Rotate</h1>
+<p>Rotates the image by an angle θ around its centre. Positive angles rotate counter-clockwise as the image is seen on screen (with the y axis pointing down).</p>
+<figure><math display="block"><mrow><mrow><mo>[</mo><mtable><mtr><mtd><msup><mi>x</mi><mo>′</mo></msup></mtd></mtr><mtr><mtd><msup><mi>y</mi><mo>′</mo></msup></mtd></mtr></mtable><mo>]</mo></mrow><mo>=</mo><mrow><mo>[</mo><mtable><mtr><mtd><mrow><mi mathvariant="normal">cos</mi><mi>θ</mi></mrow></mtd><mtd><mrow><mi mathvariant="normal">sin</mi><mi>θ</mi></mrow></mtd><mtd><mrow><mrow><mo>(</mo><mn>1</mn><mo>−</mo><mi mathvariant="normal">cos</mi><mi>θ</mi><mo>)</mo></mrow><msub><mi>c</mi><mi>x</mi></msub><mo>−</mo><mi mathvariant="normal">sin</mi><mi>θ</mi><msub><mi>c</mi><mi>y</mi></msub></mrow></mtd></mtr><mtr><mtd><mrow><mo>−</mo><mi mathvariant="normal">sin</mi><mi>θ</mi></mrow></mtd><mtd><mrow><mi mathvariant="normal">cos</mi><mi>θ</mi></mrow></mtd><mtd><mrow><mi mathvariant="normal">sin</mi><mi>θ</mi><msub><mi>c</mi><mi>x</mi></msub><mo>+</mo><mrow><mo>(</mo><mn>1</mn><mo>−</mo><mi mathvariant="normal">cos</mi><mi>θ</mi><mo>)</mo></mrow><msub><mi>c</mi><mi>y</mi></msub></mrow></mtd></mtr></mtable><mo>]</mo></mrow><mrow><mo>[</mo><mtable><mtr><mtd><mi>x</mi></mtd></mtr><mtr><mtd><mi>y</mi></mtd></mtr><mtr><mtd><mn>1</mn></mtd></mtr></mtable><mo>]</mo></mrow></mrow></math><figcaption>OpenCV rotation matrix (getRotationMatrix2D), with centre (c<sub>x</sub>, c<sub>y</sub>) = (W/2, H/2).</figcaption></figure>
+<figure><math display="block"><mrow><msup><mi>W</mi><mo>′</mo></msup><mo>=</mo><mrow><mo>⌈</mo><mrow><mo>|</mo><mi>W</mi><mi mathvariant="normal">cos</mi><mi>θ</mi><mo>|</mo></mrow><mo>+</mo><mrow><mo>|</mo><mi>H</mi><mi mathvariant="normal">sin</mi><mi>θ</mi><mo>|</mo></mrow><mo>⌉</mo></mrow><mo>,</mo><mspace width="1em"/><msup><mi>H</mi><mo>′</mo></msup><mo>=</mo><mrow><mo>⌈</mo><mrow><mo>|</mo><mi>W</mi><mi mathvariant="normal">sin</mi><mi>θ</mi><mo>|</mo></mrow><mo>+</mo><mrow><mo>|</mo><mi>H</mi><mi mathvariant="normal">cos</mi><mi>θ</mi><mo>|</mo></mrow><mo>⌉</mo></mrow></mrow></math><figcaption>Canvas size when it is expanded to fit the whole image; the translation is adjusted so the image stays centred.</figcaption></figure>
+<p>Each output pixel is computed with the inverse transform and interpolated (bilinear); areas outside the original image are black. Rotations of 90°, 180° and 270° with an expanded canvas are done by reordering pixels, with no interpolation or loss.</p>
+<h2>Parameters</h2><table><thead><tr><th>Parameter</th><th>Meaning</th></tr></thead><tbody><tr><td>Angle (degrees, counter-clockwise)</td><td>θ in degrees, between −360 and 360.</td></tr><tr><td>Expand canvas to fit the whole image</td><td>If checked, the canvas grows to W′×H′ so no corner is cut; otherwise it keeps W×H.</td></tr></tbody></table>
+<p>See also: <a href="interpolation.html">Interpolation and borders</a></p>
+<footer>Lulumoy Studio · DonatellaTech · <a href="https://donatellatech.com/">donatellatech.com</a></footer>
+</body>
+</html>

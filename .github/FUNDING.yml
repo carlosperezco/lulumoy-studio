@@ -1,0 +1,16 @@
+# Botón "Sponsor" de GitHub: enlaces para apoyar el proyecto.
+#
+# Para activarlo:
+#   1. Quite el "#" del principio de las líneas que quiera usar y ponga su
+#      nombre de usuario en cada plataforma.
+#   2. Suba el archivo a la rama principal del repositorio.
+#   3. En GitHub: Settings > General > Features > marque "Sponsorships".
+# Mientras todas las líneas estén comentadas, GitHub no muestra el botón.
+#
+# Documentación: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/displaying-a-sponsor-button-in-your-repository
+
+# github: su_usuario_de_github        # GitHub Sponsors (si está disponible en su país)
+# ko_fi: su_usuario                   # https://ko-fi.com/su_usuario
+# buy_me_a_coffee: su_usuario         # https://buymeacoffee.com/su_usuario
+# liberapay: su_usuario               # https://liberapay.com/su_usuario
+# custom: ["https://paypal.me/su_usuario"]

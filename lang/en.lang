@@ -1,0 +1,305 @@
+# English
+lang.name = English
+
+# Menus
+menu.file = File
+menu.edit = Edit
+menu.edit/format = Change format
+menu.edit/filters = Filters
+menu.chain = Chain
+menu.view = View
+menu.language = Language
+menu.help = Help
+
+file.open = Open…
+file.save_as = Save as…
+file.export_svg = Export SVG (vectorize)…
+file.properties = Properties…
+file.close = Close image
+file.quit = Quit
+
+edit.undo = Undo last step
+edit.restore = Restore original image
+
+chain.view = View current chain
+chain.save = Save chain…
+chain.apply = Apply chain from file…
+chain.empty = The chain is empty: no operation has been applied yet.
+chain.title = Applied command chain:
+
+view.zoom_in = Zoom in
+view.zoom_out = Zoom out
+view.zoom_100 = Actual size (100%)
+view.zoom_fit = Fit to window
+
+help.about = About
+help.guide = Mathematical guide to parameters
+help.mission = DonatellaTech: mission and vision
+help.not_found = Cannot open the help page
+
+# Dialogs
+dialog.cancel = Cancel
+dialog.apply = Apply
+dialog.copy = Copy all
+dialog.properties = Properties
+dialog.help = Help
+dialog.close = Close
+dialog.open_image = Open image
+dialog.save_image = Save image as (new file)
+dialog.save_chain = Save command chain
+dialog.save_svg = Save SVG (new file)
+dialog.open_chain = Open command chain
+filter.images = Images
+filter.chains = Command chains (*.cvchain)
+filter.svg = Vector images (*.svg)
+filter.all = All files
+
+# Status bar
+pick.status = Point %1 of %2: %3  ·  Left click: mark  ·  Right click or Backspace: remove last  ·  Esc: cancel
+status.ready = No image. Use File > Open.
+status.saved = Saved:
+info.bits = bits
+info.gray = grayscale
+info.color = colour
+info.color_alpha = colour + alpha
+info.level = level
+info.zoom = zoom
+info.steps = steps:
+
+welcome.default = Welcome\nUse File > Open to load an image
+about.text = Modular image editor built with GTK and OpenCV.\nPart of DonatellaTech.
+
+# Errors
+err.file_exists = The file already exists. Choose a new name: this application never overwrites.
+err.read_failed = Cannot read the file
+err.write_failed = Cannot write the file
+err.bad_format = Unknown or unsupported image format
+err.needs_16bit_format = This format cannot store 16-bit images. Use PNG or TIFF, or convert to 8 bits first.
+err.no_image = There is no open image
+err.unknown_operation = Unknown operation
+err.operation_failed = The operation failed
+err.bad_chain = Invalid line in the chain file
+err.needs_8bit = This operation needs an 8-bit image
+err.needs_no_alpha = This operation needs a grayscale or colour image without alpha channel
+err.degenerate_points = The three points must not lie on a straight line (or coincide)
+err.degenerate_points4 = No three of the four points may lie on a straight line (or coincide)
+
+# Operations (modules). If a key is missing, the module's own text is used.
+op.format.to8bit = 8 bits
+op.format.to16bit = 16 bits
+op.format.togray = Grayscale
+op.format.tocolor = Colour
+
+op.edit.rotate = Rotate
+op.edit.rotate.angle = Angle (degrees, counter-clockwise)
+op.edit.rotate.expand = Expand canvas to fit the whole image
+op.edit.flip = Flip
+op.edit.flip.mode = Direction
+op.edit.flip.mode.Horizontal = Horizontal
+op.edit.flip.mode.Vertical = Vertical
+op.edit.flip.mode.Both = Both
+op.edit.crop = Crop
+op.edit.crop.x = Left (px)
+op.edit.crop.y = Top (px)
+op.edit.crop.width = Width (px, 0 = up to the edge)
+op.edit.crop.height = Height (px, 0 = up to the edge)
+
+op.edit.affine = Affine transform (3 points)
+op.edit.affine.src1 = Source point 1
+op.edit.affine.dst1 = Destination of point 1
+op.edit.affine.src2 = Source point 2
+op.edit.affine.dst2 = Destination of point 2
+op.edit.affine.src3 = Source point 3
+op.edit.affine.dst3 = Destination of point 3
+op.edit.affine.interpolation = Interpolation
+op.edit.affine.interpolation.Nearest = Nearest neighbour
+op.edit.affine.interpolation.Linear = Linear
+op.edit.affine.interpolation.Cubic = Cubic
+op.edit.affine.border = Empty areas
+op.edit.affine.border.Black = Black
+op.edit.affine.border.Repeat edge = Repeat edge
+op.edit.affine.border.Mirror = Mirror
+op.edit.perspective = Perspective transform (4 points)
+op.edit.perspective.src1 = Source point 1
+op.edit.perspective.dst1 = Destination of point 1
+op.edit.perspective.src2 = Source point 2
+op.edit.perspective.dst2 = Destination of point 2
+op.edit.perspective.src3 = Source point 3
+op.edit.perspective.dst3 = Destination of point 3
+op.edit.perspective.src4 = Source point 4
+op.edit.perspective.dst4 = Destination of point 4
+op.edit.perspective.interpolation = Interpolation
+op.edit.perspective.interpolation.Nearest = Nearest neighbour
+op.edit.perspective.interpolation.Linear = Linear
+op.edit.perspective.interpolation.Cubic = Cubic
+op.edit.perspective.border = Empty areas
+op.edit.perspective.border.Black = Black
+op.edit.perspective.border.Repeat edge = Repeat edge
+op.edit.perspective.border.Mirror = Mirror
+
+op.filter.gaussian = Gaussian blur
+op.filter.gaussian.ksize = Kernel size (odd)
+op.filter.gaussian.sigma = Sigma (0 = automatic)
+op.filter.box = Box blur
+op.filter.box.ksize = Kernel size
+op.filter.median = Median blur
+op.filter.median.ksize = Kernel size (odd)
+op.filter.bilateral = Bilateral filter
+op.filter.bilateral.d = Neighbourhood diameter
+op.filter.bilateral.sigma_color = Sigma colour
+op.filter.bilateral.sigma_space = Sigma space
+op.filter.sharpen = Sharpen
+op.filter.sharpen.amount = Amount
+op.filter.sharpen.sigma = Radius (sigma)
+op.filter.canny = Canny edges
+op.filter.canny.threshold1 = Lower threshold
+op.filter.canny.threshold2 = Upper threshold
+op.filter.canny.aperture = Sobel aperture
+op.filter.threshold = Threshold
+op.filter.threshold.level = Level (%)
+op.filter.threshold.type = Type
+op.filter.threshold.type.Binary = Binary
+op.filter.threshold.type.Binary inverted = Binary inverted
+op.filter.threshold.type.Truncate = Truncate
+op.filter.threshold.type.To zero = To zero
+op.filter.threshold.type.To zero inverted = To zero inverted
+op.filter.brightness_contrast = Brightness / contrast
+op.filter.brightness_contrast.brightness = Brightness (% of range)
+op.filter.brightness_contrast.contrast = Contrast (factor)
+op.filter.morphology = Morphology
+op.filter.morphology.operation = Operation
+op.filter.morphology.operation.Erode = Erode
+op.filter.morphology.operation.Dilate = Dilate
+op.filter.morphology.operation.Open = Open
+op.filter.morphology.operation.Close = Close
+op.filter.morphology.operation.Gradient = Gradient
+op.filter.morphology.shape = Kernel shape
+op.filter.morphology.shape.Rectangle = Rectangle
+op.filter.morphology.shape.Ellipse = Ellipse
+op.filter.morphology.shape.Cross = Cross
+op.filter.morphology.ksize = Kernel size
+op.filter.morphology.iterations = Iterations
+
+# Properties (File > Properties). If a key is missing, the English text is used.
+prop.group.file = File on disk
+prop.group.format = File format
+prop.group.exif = EXIF metadata
+prop.group.gps = GPS location
+prop.group.text = Embedded text
+prop.group.image = Current image (in memory)
+prop.file.name = Name
+prop.file.folder = Folder
+prop.file.size = Size on disk
+prop.file.modified = Modified
+prop.format.type = Format
+prop.format.dimensions = Dimensions
+prop.format.bit_depth = Bits per channel
+prop.format.bits_per_pixel = Bits per pixel
+prop.format.channels = Channels
+prop.format.color = Colour type
+prop.format.color_space = Colour space
+prop.format.compression = Compression
+prop.format.subsampling = Chroma subsampling
+prop.format.interlace = Interlacing
+prop.format.resolution = Resolution
+prop.format.gamma = Gamma
+prop.format.icc = Colour profile (ICC)
+prop.format.xmp = XMP metadata
+prop.format.iptc = IPTC metadata
+prop.format.pages = Pages
+prop.format.animation = Animation
+prop.format.alpha = Transparency
+prop.format.time = Date modified (metadata)
+prop.exif.resolution = Resolution
+prop.exif.make = Camera make
+prop.exif.model = Camera model
+prop.exif.software = Software
+prop.exif.datetime = Date modified (metadata)
+prop.exif.orientation = Orientation
+prop.exif.description = Description
+prop.exif.artist = Author
+prop.exif.copyright = Copyright
+prop.exif.date_original = Date taken
+prop.exif.exposure_time = Exposure time
+prop.exif.fnumber = Aperture
+prop.exif.iso = ISO
+prop.exif.focal_length = Focal length
+prop.exif.focal_length_35 = Focal length (35 mm equivalent)
+prop.exif.exposure_bias = Exposure compensation
+prop.exif.exposure_program = Exposure program
+prop.exif.metering = Metering mode
+prop.exif.flash = Flash
+prop.exif.white_balance = White balance
+prop.exif.color_space = Colour space
+prop.exif.pixel_dimensions = Original dimensions
+prop.exif.lens_make = Lens make
+prop.exif.lens_model = Lens model
+prop.exif.owner = Camera owner
+prop.exif.serial = Camera serial number
+prop.gps.latitude = Latitude
+prop.gps.longitude = Longitude
+prop.gps.altitude = Altitude
+prop.gps.date = Date (UTC)
+prop.text.comment = Comment
+prop.image.dimensions = Dimensions
+prop.image.megapixels = Megapixels
+prop.image.channels = Channels
+prop.image.bit_depth = Bits per channel
+prop.image.type = OpenCV type
+prop.image.memory = Memory used
+prop.image.range = Value range (min - max)
+prop.image.mean = Mean per channel
+prop.image.stddev = Standard deviation per channel
+prop.image.steps = Applied steps
+
+# Vectorization (File > Export SVG)
+vecdlg.title = Black-and-white vectorization
+vecdlg.save = Save SVG…
+vecdlg.mode = Preview
+vecdlg.mode.result = Vector result
+vecdlg.mode.overlay = Over the image
+vecdlg.mode.binary = Thresholded image (pixels)
+vecdlg.zoom = Size
+vecdlg.zoom.fit = Fit
+vecdlg.zoom.100 = 100 %
+vecdlg.computing = Computing…
+vecdlg.stats = %1 paths · %2 nodes · SVG ≈ %3
+vecdlg.work = working resolution %1
+vec.method = Threshold method
+vec.method.Fixed = Fixed
+vec.method.Automatic (Otsu) = Automatic (Otsu)
+vec.method.Adaptive = Adaptive (uneven lighting)
+vec.threshold = Threshold level (fixed method)
+vec.block = Block size in px (adaptive method)
+vec.offset = Offset C (adaptive method)
+vec.blur = Pre-blur (sigma, px)
+vec.invert = Trace light shapes (invert)
+vec.scale = Working resolution
+vec.scale.x1 = ×1 (fast)
+vec.scale.x2 = ×2 (finer edges)
+vec.scale.x4 = ×4 (small images)
+vec.clean = Edge cleaning (px)
+vec.min_area = Ignore specks smaller than (px²)
+vec.epsilon = Simplification (px)
+vec.curves = Outline
+vec.curves.Polygons = Polygons
+vec.curves.Smooth curves = Smooth curves
+vec.corner = Keep corners sharper than (degrees)
+vec.background = White background in the SVG
+
+# Acerca de / DonatellaTech
+about.contact = Contact
+about.libraries = Libraries
+mission.title = DonatellaTech
+mission.mission = Mission
+mission.vision = Vision
+mission.mission_text = Our mission is to provide innovative and high-quality engineering services by developing software (SW) and firmware (FW) for home and industrial systems in key areas such as agriculture, livestock, and healthcare. We specialize in the implementation of advanced technological solutions, always focused on benefiting the community, preserving nature, and improving human health.
+mission.vision_text = Our vision is to become a global benchmark in the development of technologies that promote a positive impact on society and the environment. We believe in a future where respect, diversity, and multiculturalism are fundamental, and in the power of combining theoretical knowledge with practical implementation to address the challenges of today and tomorrow.
+
+# Parameter dialog preview
+prev.preview = Preview
+prev.view = Show
+prev.view.result = Result
+prev.view.original = Original
+prev.result = Result: %1 · computed in %2 ms
+prev.off = Preview off: showing the original image

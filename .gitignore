@@ -1,0 +1,40 @@
+# Compilación (CMake): todo se regenera con "cmake --build build"
+build/
+build-*/
+dist/
+instalador/
+__pycache__/
+out/
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+compile_commands.json
+CMakeUserPresets.json
+
+# Documentación generada por Doxygen
+docs/
+
+# Binarios y objetos sueltos
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.dll
+*.exe
+*.pdb
+
+# Editores
+.vscode/
+.vs/
+.idea/
+*.swp
+*~
+
+# Sistema operativo
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Imágenes de prueba y resultados (quite esta línea si quiere versionarlas)
+/pruebas/

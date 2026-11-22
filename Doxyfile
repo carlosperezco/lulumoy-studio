@@ -1,0 +1,35 @@
+# Configuración de Doxygen. Uso:  doxygen Doxyfile   (resultado en docs/html)
+# Las opciones no indicadas toman su valor por defecto.
+
+PROJECT_NAME           = "Lulumoy Studio"
+# La versión la pone CMake ("cmake --build build --target docs"); con doxygen
+# directamente, se puede pasar así: LULUMOY_VERSION=1.0.0 doxygen Doxyfile
+PROJECT_NUMBER         = $(LULUMOY_VERSION)
+PROJECT_BRIEF          = "Editor de imágenes modular con GTK y OpenCV (DonatellaTech)"
+PROJECT_LOGO           = assets/icon.png
+OUTPUT_DIRECTORY       = docs
+OUTPUT_LANGUAGE        = Spanish
+
+INPUT                  = README.md core gui app
+FILE_PATTERNS          = *.h *.cpp *.md
+RECURSIVE              = YES
+INPUT_ENCODING         = UTF-8
+USE_MDFILE_AS_MAINPAGE = README.md
+STRIP_FROM_PATH        = .
+STRIP_FROM_INC_PATH    = core/include gui/include
+
+EXTRACT_ALL            = YES
+EXTRACT_PRIVATE        = YES
+EXTRACT_STATIC         = YES
+EXTRACT_ANON_NSPACES   = YES
+JAVADOC_AUTOBRIEF      = YES
+SOURCE_BROWSER         = YES
+MACRO_EXPANSION        = YES
+PREDEFINED             = "CVCORE_REGISTER_OPERATION(T)="
+
+GENERATE_HTML          = YES
+GENERATE_LATEX         = NO
+GENERATE_TREEVIEW      = YES
+HAVE_DOT               = NO
+QUIET                  = YES
+WARN_IF_UNDOCUMENTED   = NO

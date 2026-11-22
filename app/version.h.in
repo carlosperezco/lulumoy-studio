@@ -1,0 +1,13 @@
+/**
+ * @file version.h
+ * @brief Versión de la aplicación (archivo generado por CMake).
+ *
+ * No editar: se crea a partir de app/version.h.in. La versión se cambia en
+ * CMakeLists.txt, en la línea project(lulumoy VERSION x.y.z ...).
+ */
+#pragma once
+
+#define LULUMOY_VERSION "@PROJECT_VERSION@"
+#define LULUMOY_VERSION_MAJOR @PROJECT_VERSION_MAJOR@
+#define LULUMOY_VERSION_MINOR @PROJECT_VERSION_MINOR@
+#define LULUMOY_VERSION_PATCH @PROJECT_VERSION_PATCH@

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Median blur · Lulumoy Studio</title>
+<style>
+:root { color-scheme: light dark; --acento: #2e7d32; --suave: #f3f8ee; --borde: #cfe3c0; }
+@media (prefers-color-scheme: dark) { :root { --acento: #8bd450; --suave: #1e261a; --borde: #3a4a30; } }
+body { font-family: "Segoe UI", system-ui, -apple-system, Roboto, Ubuntu, sans-serif; line-height: 1.55;
+       max-width: 860px; margin: 0 auto; padding: 1.5rem 1.25rem 3rem; }
+header { display: flex; align-items: center; gap: .75rem; border-bottom: 2px solid var(--acento); padding-bottom: .5rem; }
+header img { width: 44px; height: 44px; }
+header .marca { font-weight: 600; color: var(--acento); }
+nav { margin: .75rem 0 1.25rem; font-size: .95rem; }
+a { color: var(--acento); }
+h1 { font-size: 1.6rem; margin: 1rem 0 .5rem; }
+h2 { font-size: 1.2rem; margin-top: 1.6rem; color: var(--acento); }
+figure { background: var(--suave); border: 1px solid var(--borde); border-radius: 8px; margin: 1rem 0; padding: .6rem 1rem; }
+figure math { font-size: 1.2rem; overflow-x: auto; padding: .4rem 0; }
+figcaption { font-size: .95rem; }
+table { border-collapse: collapse; width: 100%; margin: .5rem 0; }
+th, td { border-bottom: 1px solid var(--borde); padding: .45rem .5rem; text-align: left; vertical-align: top; }
+th { color: var(--acento); }
+td:first-child { width: 34%; font-weight: 600; }
+.nota { border-left: 4px solid var(--acento); padding: .3rem .8rem; background: var(--suave); }
+ul.indice { columns: 2; padding-left: 1.2rem; }
+footer { margin-top: 2.5rem; font-size: .85rem; opacity: .75; }
+</style>
+</head>
+<body>
+<header><img src="../../assets/lulumoy_icon.png" alt=""/><span class="marca">Lulumoy Studio · Mathematical guide</span></header>
+<nav><a href="index.html">← Contents</a></nav>
+<h1>Median blur</h1>
+<p>Replaces each pixel by the median of its window. It is non-linear: it removes impulse ("salt and pepper") noise while preserving edges better than an average.</p>
+<figure><math display="block"><mrow><mrow><msup><mi>I</mi><mo>′</mo></msup><mrow><mo>(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo>)</mo></mrow></mrow><mo>=</mo><mi mathvariant="normal">med</mi><mrow><mo>{</mo><mrow><mi>I</mi><mrow><mo>(</mo><mrow><mi>x</mi><mo>+</mo><mi>i</mi></mrow><mo>,</mo><mrow><mi>y</mi><mo>+</mo><mi>j</mi></mrow><mo>)</mo></mrow></mrow><mo>:</mo><mrow><mo>|</mo><mi>i</mi><mo>|</mo></mrow><mo>,</mo><mrow><mo>|</mo><mi>j</mi><mo>|</mo></mrow><mo>≤</mo><mi>r</mi><mo>}</mo></mrow></mrow></math><figcaption>The median is the middle value after sorting the k² values. In colour images it is computed per channel.</figcaption></figure>
+<h2>Parameters</h2><table><thead><tr><th>Parameter</th><th>Meaning</th></tr></thead><tbody><tr><td>Kernel size (odd)</td><td>k, odd and at least 3. OpenCV only allows k > 5 on 8-bit images.</td></tr></tbody></table>
+<footer>Lulumoy Studio · DonatellaTech · <a href="https://donatellatech.com/">donatellatech.com</a></footer>
+</body>
+</html>

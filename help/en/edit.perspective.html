@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Perspective transform (4 points) · Lulumoy Studio</title>
+<style>
+:root { color-scheme: light dark; --acento: #2e7d32; --suave: #f3f8ee; --borde: #cfe3c0; }
+@media (prefers-color-scheme: dark) { :root { --acento: #8bd450; --suave: #1e261a; --borde: #3a4a30; } }
+body { font-family: "Segoe UI", system-ui, -apple-system, Roboto, Ubuntu, sans-serif; line-height: 1.55;
+       max-width: 860px; margin: 0 auto; padding: 1.5rem 1.25rem 3rem; }
+header { display: flex; align-items: center; gap: .75rem; border-bottom: 2px solid var(--acento); padding-bottom: .5rem; }
+header img { width: 44px; height: 44px; }
+header .marca { font-weight: 600; color: var(--acento); }
+nav { margin: .75rem 0 1.25rem; font-size: .95rem; }
+a { color: var(--acento); }
+h1 { font-size: 1.6rem; margin: 1rem 0 .5rem; }
+h2 { font-size: 1.2rem; margin-top: 1.6rem; color: var(--acento); }
+figure { background: var(--suave); border: 1px solid var(--borde); border-radius: 8px; margin: 1rem 0; padding: .6rem 1rem; }
+figure math { font-size: 1.2rem; overflow-x: auto; padding: .4rem 0; }
+figcaption { font-size: .95rem; }
+table { border-collapse: collapse; width: 100%; margin: .5rem 0; }
+th, td { border-bottom: 1px solid var(--borde); padding: .45rem .5rem; text-align: left; vertical-align: top; }
+th { color: var(--acento); }
+td:first-child { width: 34%; font-weight: 600; }
+.nota { border-left: 4px solid var(--acento); padding: .3rem .8rem; background: var(--suave); }
+ul.indice { columns: 2; padding-left: 1.2rem; }
+footer { margin-top: 2.5rem; font-size: .85rem; opacity: .75; }
+</style>
+</head>
+<body>
+<header><img src="../../assets/lulumoy_icon.png" alt=""/><span class="marca">Lulumoy Studio · Mathematical guide</span></header>
+<nav><a href="index.html">← Contents</a></nav>
+<h1>Perspective transform (4 points)</h1>
+<p>Homography: the mapping between two views of a plane taken from different points. It preserves straight lines but not parallelism (parallel lines may converge to a vanishing point). Useful to straighten documents, façades or boards photographed at an angle.</p>
+<figure><math display="block"><mrow><mrow><mo>[</mo><mtable><mtr><mtd><mi>u</mi></mtd></mtr><mtr><mtd><mi>v</mi></mtd></mtr><mtr><mtd><mi>w</mi></mtd></mtr></mtable><mo>]</mo></mrow><mo>=</mo><mrow><mo>[</mo><mtable><mtr><mtd><msub><mi>h</mi><mn>11</mn></msub></mtd><mtd><msub><mi>h</mi><mn>12</mn></msub></mtd><mtd><msub><mi>h</mi><mn>13</mn></msub></mtd></mtr><mtr><mtd><msub><mi>h</mi><mn>21</mn></msub></mtd><mtd><msub><mi>h</mi><mn>22</mn></msub></mtd><mtd><msub><mi>h</mi><mn>23</mn></msub></mtd></mtr><mtr><mtd><msub><mi>h</mi><mn>31</mn></msub></mtd><mtd><msub><mi>h</mi><mn>32</mn></msub></mtd><mtd><mn>1</mn></mtd></mtr></mtable><mo>]</mo></mrow><mrow><mo>[</mo><mtable><mtr><mtd><mi>x</mi></mtd></mtr><mtr><mtd><mi>y</mi></mtd></mtr><mtr><mtd><mn>1</mn></mtd></mtr></mtable><mo>]</mo></mrow><mo>,</mo><mspace width="1.5em"/><msup><mi>x</mi><mo>′</mo></msup><mo>=</mo><mfrac><mi>u</mi><mi>w</mi></mfrac><mo>,</mo><mspace width="1em"/><msup><mi>y</mi><mo>′</mo></msup><mo>=</mo><mfrac><mi>v</mi><mi>w</mi></mfrac></mrow></math><figcaption>Homogeneous coordinates: dividing by w produces the perspective effect. H is defined up to a scale factor, hence h<sub>33</sub> = 1 and 8 unknowns remain.</figcaption></figure>
+<figure><math display="block"><mrow><mrow><mo>{</mo><mtable columnalign="left left"><mtr><mtd><mrow><msubsup><mi>x</mi><mi>k</mi><mo>′</mo></msubsup><mrow><mo>(</mo><msub><mi>h</mi><mn>31</mn></msub><msub><mi>x</mi><mi>k</mi></msub><mo>+</mo><msub><mi>h</mi><mn>32</mn></msub><msub><mi>y</mi><mi>k</mi></msub><mo>+</mo><mn>1</mn><mo>)</mo></mrow><mo>=</mo><msub><mi>h</mi><mn>11</mn></msub><msub><mi>x</mi><mi>k</mi></msub><mo>+</mo><msub><mi>h</mi><mn>12</mn></msub><msub><mi>y</mi><mi>k</mi></msub><mo>+</mo><msub><mi>h</mi><mn>13</mn></msub></mrow></mtd><mtd><mspace width="1em"/><mtext></mtext></mtd></mtr><mtr><mtd><mrow><msubsup><mi>y</mi><mi>k</mi><mo>′</mo></msubsup><mrow><mo>(</mo><msub><mi>h</mi><mn>31</mn></msub><msub><mi>x</mi><mi>k</mi></msub><mo>+</mo><msub><mi>h</mi><mn>32</mn></msub><msub><mi>y</mi><mi>k</mi></msub><mo>+</mo><mn>1</mn><mo>)</mo></mrow><mo>=</mo><msub><mi>h</mi><mn>21</mn></msub><msub><mi>x</mi><mi>k</mi></msub><mo>+</mo><msub><mi>h</mi><mn>22</mn></msub><msub><mi>y</mi><mi>k</mi></msub><mo>+</mo><msub><mi>h</mi><mn>23</mn></msub></mrow></mtd><mtd><mspace width="1em"/><mrow><mi>k</mi><mo>=</mo><mn>1</mn><mo>,</mo><mo>…</mo><mo>,</mo><mn>4</mn></mrow></mtd></mtr></mtable></mrow></mrow></math><figcaption>Four point pairs give eight linear equations in the h<sub>ij</sub>; cv::getPerspectiveTransform solves the 8×8 system. The solution is unique if no three points are collinear at source or destination, which the program checks.</figcaption></figure>
+<p>As with the affine transform, cv::warpPerspective computes each destination pixel with the inverse transform H<sup>−1</sup> and interpolates it. The result keeps the image size.</p>
+<h2>Parameters</h2><table><thead><tr><th>Parameter</th><th>Meaning</th></tr></thead><tbody><tr><td>Interpolation</td><td>How values at non-integer positions are computed.</td></tr><tr><td>Empty areas</td><td>Value of pixels that fall outside the original image.</td></tr></tbody></table>
+<p>See also: <a href="interpolation.html">Interpolation and borders</a>, <a href="edit.affine.html">Affine transform (3 points)</a></p>
+<footer>Lulumoy Studio · DonatellaTech · <a href="https://donatellatech.com/">donatellatech.com</a></footer>
+</body>
+</html>

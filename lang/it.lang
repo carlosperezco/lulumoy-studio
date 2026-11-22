@@ -1,0 +1,305 @@
+# Italiano
+lang.name = Italiano
+
+# Menu
+menu.file = File
+menu.edit = Modifica
+menu.edit/format = Cambia formato
+menu.edit/filters = Filtri
+menu.chain = Catena
+menu.view = Visualizza
+menu.language = Lingua
+menu.help = Aiuto
+
+file.open = Apri…
+file.save_as = Salva con nome…
+file.export_svg = Esporta SVG (vettorializza)…
+file.properties = Proprietà…
+file.close = Chiudi immagine
+file.quit = Esci
+
+edit.undo = Annulla ultimo passo
+edit.restore = Ripristina immagine originale
+
+chain.view = Mostra catena attuale
+chain.save = Salva catena…
+chain.apply = Applica catena da file…
+chain.empty = La catena è vuota: non è stata ancora applicata nessuna operazione.
+chain.title = Catena di comandi applicata:
+
+view.zoom_in = Ingrandisci
+view.zoom_out = Riduci
+view.zoom_100 = Dimensione reale (100%)
+view.zoom_fit = Adatta alla finestra
+
+help.about = Informazioni
+help.guide = Guida matematica ai parametri
+help.mission = DonatellaTech: missione e visione
+help.not_found = Impossibile aprire la pagina di aiuto
+
+# Finestre di dialogo
+dialog.cancel = Annulla
+dialog.apply = Applica
+dialog.copy = Copia tutto
+dialog.properties = Proprietà
+dialog.help = Aiuto
+dialog.close = Chiudi
+dialog.open_image = Apri immagine
+dialog.save_image = Salva immagine con nome (nuovo file)
+dialog.save_chain = Salva catena di comandi
+dialog.save_svg = Salva SVG (nuovo file)
+dialog.open_chain = Apri catena di comandi
+filter.images = Immagini
+filter.chains = Catene di comandi (*.cvchain)
+filter.svg = Immagini vettoriali (*.svg)
+filter.all = Tutti i file
+
+# Barra di stato
+pick.status = Punto %1 di %2: %3  ·  Clic sinistro: segna  ·  Clic destro o Backspace: rimuovi l'ultimo  ·  Esc: annulla
+status.ready = Nessuna immagine. Usare File > Apri.
+status.saved = Salvato:
+info.bits = bit
+info.gray = scala di grigi
+info.color = colore
+info.color_alpha = colore + alfa
+info.level = livello
+info.zoom = zoom
+info.steps = passi:
+
+welcome.default = Benvenuto\nUsare File > Apri per caricare un'immagine
+about.text = Editor di immagini modulare con GTK e OpenCV.\nParte di DonatellaTech.
+
+# Errori
+err.file_exists = Il file esiste già. Scegliere un nuovo nome: questa applicazione non sovrascrive mai.
+err.read_failed = Impossibile leggere il file
+err.write_failed = Impossibile scrivere il file
+err.bad_format = Formato immagine sconosciuto o non supportato
+err.needs_16bit_format = Questo formato non supporta immagini a 16 bit. Usare PNG o TIFF, oppure convertire prima a 8 bit.
+err.no_image = Nessuna immagine aperta
+err.unknown_operation = Operazione sconosciuta
+err.operation_failed = L'operazione non è riuscita
+err.bad_chain = Riga non valida nel file della catena
+err.needs_8bit = Questa operazione richiede un'immagine a 8 bit
+err.needs_no_alpha = Questa operazione richiede un'immagine in scala di grigi o a colori senza canale alfa
+err.degenerate_points = I tre punti non possono essere allineati (né coincidere)
+err.degenerate_points4 = Non possono esserci tre dei quattro punti allineati (né punti ripetuti)
+
+# Operazioni (moduli). Se manca una chiave si usa il testo del modulo.
+op.format.to8bit = 8 bit
+op.format.to16bit = 16 bit
+op.format.togray = Scala di grigi
+op.format.tocolor = Colore
+
+op.edit.rotate = Ruota
+op.edit.rotate.angle = Angolo (gradi, antiorario)
+op.edit.rotate.expand = Espandi la tela per contenere tutta l'immagine
+op.edit.flip = Capovolgi
+op.edit.flip.mode = Direzione
+op.edit.flip.mode.Horizontal = Orizzontale
+op.edit.flip.mode.Vertical = Verticale
+op.edit.flip.mode.Both = Entrambe
+op.edit.crop = Ritaglia
+op.edit.crop.x = Sinistra (px)
+op.edit.crop.y = Alto (px)
+op.edit.crop.width = Larghezza (px, 0 = fino al bordo)
+op.edit.crop.height = Altezza (px, 0 = fino al bordo)
+
+op.edit.affine = Trasformazione affine (3 punti)
+op.edit.affine.src1 = Origine 1
+op.edit.affine.dst1 = Destinazione del punto 1
+op.edit.affine.src2 = Origine 2
+op.edit.affine.dst2 = Destinazione del punto 2
+op.edit.affine.src3 = Origine 3
+op.edit.affine.dst3 = Destinazione del punto 3
+op.edit.affine.interpolation = Interpolazione
+op.edit.affine.interpolation.Nearest = Vicino più prossimo
+op.edit.affine.interpolation.Linear = Lineare
+op.edit.affine.interpolation.Cubic = Cubica
+op.edit.affine.border = Aree vuote
+op.edit.affine.border.Black = Nero
+op.edit.affine.border.Repeat edge = Ripeti il bordo
+op.edit.affine.border.Mirror = Specchio
+op.edit.perspective = Trasformazione prospettica (4 punti)
+op.edit.perspective.src1 = Origine 1
+op.edit.perspective.dst1 = Destinazione del punto 1
+op.edit.perspective.src2 = Origine 2
+op.edit.perspective.dst2 = Destinazione del punto 2
+op.edit.perspective.src3 = Origine 3
+op.edit.perspective.dst3 = Destinazione del punto 3
+op.edit.perspective.src4 = Origine 4
+op.edit.perspective.dst4 = Destinazione del punto 4
+op.edit.perspective.interpolation = Interpolazione
+op.edit.perspective.interpolation.Nearest = Vicino più prossimo
+op.edit.perspective.interpolation.Linear = Lineare
+op.edit.perspective.interpolation.Cubic = Cubica
+op.edit.perspective.border = Aree vuote
+op.edit.perspective.border.Black = Nero
+op.edit.perspective.border.Repeat edge = Ripeti il bordo
+op.edit.perspective.border.Mirror = Specchio
+
+op.filter.gaussian = Sfocatura gaussiana
+op.filter.gaussian.ksize = Dimensione del kernel (dispari)
+op.filter.gaussian.sigma = Sigma (0 = automatico)
+op.filter.box = Sfocatura media
+op.filter.box.ksize = Dimensione del kernel
+op.filter.median = Mediana
+op.filter.median.ksize = Dimensione del kernel (dispari)
+op.filter.bilateral = Filtro bilaterale
+op.filter.bilateral.d = Diametro dell'intorno
+op.filter.bilateral.sigma_color = Sigma colore
+op.filter.bilateral.sigma_space = Sigma spaziale
+op.filter.sharpen = Nitidezza
+op.filter.sharpen.amount = Quantità
+op.filter.sharpen.sigma = Raggio (sigma)
+op.filter.canny = Bordi (Canny)
+op.filter.canny.threshold1 = Soglia inferiore
+op.filter.canny.threshold2 = Soglia superiore
+op.filter.canny.aperture = Apertura di Sobel
+op.filter.threshold = Soglia
+op.filter.threshold.level = Livello (%)
+op.filter.threshold.type = Tipo
+op.filter.threshold.type.Binary = Binaria
+op.filter.threshold.type.Binary inverted = Binaria invertita
+op.filter.threshold.type.Truncate = Tronca
+op.filter.threshold.type.To zero = A zero
+op.filter.threshold.type.To zero inverted = A zero invertita
+op.filter.brightness_contrast = Luminosità / contrasto
+op.filter.brightness_contrast.brightness = Luminosità (% dell'intervallo)
+op.filter.brightness_contrast.contrast = Contrasto (fattore)
+op.filter.morphology = Morfologia
+op.filter.morphology.operation = Operazione
+op.filter.morphology.operation.Erode = Erosione
+op.filter.morphology.operation.Dilate = Dilatazione
+op.filter.morphology.operation.Open = Apertura
+op.filter.morphology.operation.Close = Chiusura
+op.filter.morphology.operation.Gradient = Gradiente
+op.filter.morphology.shape = Forma del kernel
+op.filter.morphology.shape.Rectangle = Rettangolo
+op.filter.morphology.shape.Ellipse = Ellisse
+op.filter.morphology.shape.Cross = Croce
+op.filter.morphology.ksize = Dimensione del kernel
+op.filter.morphology.iterations = Iterazioni
+
+# Proprietà (File > Proprietà). Se manca una chiave si usa il testo in inglese.
+prop.group.file = File su disco
+prop.group.format = Formato del file
+prop.group.exif = Metadati EXIF
+prop.group.gps = Posizione GPS
+prop.group.text = Testo incorporato
+prop.group.image = Immagine attuale (in memoria)
+prop.file.name = Nome
+prop.file.folder = Cartella
+prop.file.size = Dimensione su disco
+prop.file.modified = Modificato
+prop.format.type = Formato
+prop.format.dimensions = Dimensioni
+prop.format.bit_depth = Bit per canale
+prop.format.bits_per_pixel = Bit per pixel
+prop.format.channels = Canali
+prop.format.color = Tipo di colore
+prop.format.color_space = Spazio colore
+prop.format.compression = Compressione
+prop.format.subsampling = Sottocampionamento della crominanza
+prop.format.interlace = Interlacciamento
+prop.format.resolution = Risoluzione
+prop.format.gamma = Gamma
+prop.format.icc = Profilo colore (ICC)
+prop.format.xmp = Metadati XMP
+prop.format.iptc = Metadati IPTC
+prop.format.pages = Pagine
+prop.format.animation = Animazione
+prop.format.alpha = Trasparenza
+prop.format.time = Data di modifica (metadati)
+prop.exif.resolution = Risoluzione
+prop.exif.make = Marca della fotocamera
+prop.exif.model = Modello della fotocamera
+prop.exif.software = Software
+prop.exif.datetime = Data di modifica (metadati)
+prop.exif.orientation = Orientamento
+prop.exif.description = Descrizione
+prop.exif.artist = Autore
+prop.exif.copyright = Copyright
+prop.exif.date_original = Data dello scatto
+prop.exif.exposure_time = Tempo di esposizione
+prop.exif.fnumber = Apertura
+prop.exif.iso = ISO
+prop.exif.focal_length = Lunghezza focale
+prop.exif.focal_length_35 = Lunghezza focale (equivalente 35 mm)
+prop.exif.exposure_bias = Compensazione dell'esposizione
+prop.exif.exposure_program = Programma di esposizione
+prop.exif.metering = Modalità di misurazione
+prop.exif.flash = Flash
+prop.exif.white_balance = Bilanciamento del bianco
+prop.exif.color_space = Spazio colore
+prop.exif.pixel_dimensions = Dimensioni originali
+prop.exif.lens_make = Marca dell'obiettivo
+prop.exif.lens_model = Modello dell'obiettivo
+prop.exif.owner = Proprietario della fotocamera
+prop.exif.serial = Numero di serie della fotocamera
+prop.gps.latitude = Latitudine
+prop.gps.longitude = Longitudine
+prop.gps.altitude = Altitudine
+prop.gps.date = Data (UTC)
+prop.text.comment = Commento
+prop.image.dimensions = Dimensioni
+prop.image.megapixels = Megapixel
+prop.image.channels = Canali
+prop.image.bit_depth = Bit per canale
+prop.image.type = Tipo OpenCV
+prop.image.memory = Memoria occupata
+prop.image.range = Intervallo di valori (min - max)
+prop.image.mean = Media per canale
+prop.image.stddev = Deviazione standard per canale
+prop.image.steps = Passi applicati
+
+# Vettorializzazione (File > Esporta SVG)
+vecdlg.title = Vettorializzazione in bianco e nero
+vecdlg.save = Salva SVG…
+vecdlg.mode = Anteprima
+vecdlg.mode.result = Risultato vettoriale
+vecdlg.mode.overlay = Sovrapposto all'immagine
+vecdlg.mode.binary = Immagine binarizzata (pixel)
+vecdlg.zoom = Dimensione
+vecdlg.zoom.fit = Adatta
+vecdlg.zoom.100 = 100 %
+vecdlg.computing = Calcolo in corso…
+vecdlg.stats = %1 tracciati · %2 nodi · SVG ≈ %3
+vecdlg.work = risoluzione di lavoro %1
+vec.method = Metodo di soglia
+vec.method.Fixed = Fisso
+vec.method.Automatic (Otsu) = Automatico (Otsu)
+vec.method.Adaptive = Adattivo (illuminazione irregolare)
+vec.threshold = Livello di soglia (metodo fisso)
+vec.block = Dimensione del blocco in px (adattivo)
+vec.offset = Costante C (adattivo)
+vec.blur = Sfocatura preliminare (sigma, px)
+vec.invert = Traccia le zone chiare (inverti)
+vec.scale = Risoluzione di lavoro
+vec.scale.x1 = ×1 (veloce)
+vec.scale.x2 = ×2 (bordi più fini)
+vec.scale.x4 = ×4 (immagini piccole)
+vec.clean = Pulizia dei bordi (px)
+vec.min_area = Ignora macchie più piccole di (px²)
+vec.epsilon = Semplificazione (px)
+vec.curves = Contorno
+vec.curves.Polygons = Poligoni
+vec.curves.Smooth curves = Curve morbide
+vec.corner = Mantieni angoli oltre (gradi)
+vec.background = Sfondo bianco nell'SVG
+
+# Acerca de / DonatellaTech
+about.contact = Contatto
+about.libraries = Librerie
+mission.title = DonatellaTech
+mission.mission = Missione
+mission.vision = Visione
+mission.mission_text = La nostra missione è offrire servizi di ingegneria innovativi e di alta qualità, sviluppando software (SW) e firmware (FW) per sistemi domestici e industriali in settori chiave come l'agricoltura, la zootecnia e la sanità. Siamo specializzati nell'implementazione di soluzioni tecnologiche avanzate, sempre orientate a beneficiare la comunità, preservare la natura e migliorare la salute umana.
+mission.vision_text = La nostra visione è diventare un punto di riferimento globale nello sviluppo di tecnologie che promuovano un impatto positivo sulla società e sull'ambiente. Crediamo in un futuro in cui il rispetto, la diversità e la multiculturalità siano fondamentali, e nel potere di unire la conoscenza teorica all'implementazione pratica per affrontare le sfide di oggi e di domani.
+
+# Anteprima dei dialoghi dei parametri
+prev.preview = Anteprima
+prev.view = Mostra
+prev.view.result = Risultato
+prev.view.original = Originale
+prev.result = Risultato: %1 · calcolato in %2 ms
+prev.off = Anteprima disattivata: viene mostrata l'immagine originale

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Vettorializzazione in SVG · Lulumoy Studio</title>
+<style>
+:root { color-scheme: light dark; --acento: #2e7d32; --suave: #f3f8ee; --borde: #cfe3c0; }
+@media (prefers-color-scheme: dark) { :root { --acento: #8bd450; --suave: #1e261a; --borde: #3a4a30; } }
+body { font-family: "Segoe UI", system-ui, -apple-system, Roboto, Ubuntu, sans-serif; line-height: 1.55;
+       max-width: 860px; margin: 0 auto; padding: 1.5rem 1.25rem 3rem; }
+header { display: flex; align-items: center; gap: .75rem; border-bottom: 2px solid var(--acento); padding-bottom: .5rem; }
+header img { width: 44px; height: 44px; }
+header .marca { font-weight: 600; color: var(--acento); }
+nav { margin: .75rem 0 1.25rem; font-size: .95rem; }
+a { color: var(--acento); }
+h1 { font-size: 1.6rem; margin: 1rem 0 .5rem; }
+h2 { font-size: 1.2rem; margin-top: 1.6rem; color: var(--acento); }
+figure { background: var(--suave); border: 1px solid var(--borde); border-radius: 8px; margin: 1rem 0; padding: .6rem 1rem; }
+figure math { font-size: 1.2rem; overflow-x: auto; padding: .4rem 0; }
+figcaption { font-size: .95rem; }
+table { border-collapse: collapse; width: 100%; margin: .5rem 0; }
+th, td { border-bottom: 1px solid var(--borde); padding: .45rem .5rem; text-align: left; vertical-align: top; }
+th { color: var(--acento); }
+td:first-child { width: 34%; font-weight: 600; }
+.nota { border-left: 4px solid var(--acento); padding: .3rem .8rem; background: var(--suave); }
+ul.indice { columns: 2; padding-left: 1.2rem; }
+footer { margin-top: 2.5rem; font-size: .85rem; opacity: .75; }
+</style>
+</head>
+<body>
+<header><img src="../../assets/lulumoy_icon.png" alt=""/><span class="marca">Lulumoy Studio · Guida matematica</span></header>
+<nav><a href="index.html">← Indice</a></nav>
+<h1>Vettorializzazione in SVG</h1>
+<p>Converte l'immagine in tracciati vettoriali in bianco e nero: prima decide quali pixel fanno parte delle forme (binarizzazione), poi ne segue i contorni e infine li semplifica e li ammorbidisce. I passi, nell'ordine in cui si applicano, sono i seguenti.</p>
+<h2>1. Risoluzione di lavoro e sfocatura</h2>
+<p>L'immagine si converte in grigi a 8 bit e si ingrandisce s volte (s = 1, 2 o 4) con interpolazione bicubica. Lavorare a risoluzione maggiore colloca i bordi con precisione sub-pixel, il che migliora molto le immagini piccole. Se W·H·s² superasse 4·10<sup>7</sup> pixel, s si riduce automaticamente. Poi si applica una sfocatura gaussiana di σ·s, se σ &gt; 0. Tutti i parametri in pixel si riferiscono ai pixel dell'immagine originale; internamente si moltiplicano per s.</p>
+<h2>2. Binarizzazione</h2>
+<figure><math display="block"><mrow><mi>F</mi><mo>=</mo><mrow><mo>{</mo><mi>p</mi><mo>:</mo><mrow><mi>I</mi><mrow><mo>(</mo><mi>p</mi><mo>)</mo></mrow></mrow><mo>≤</mo><mrow><mi>T</mi><mrow><mo>(</mo><mi>p</mi><mo>)</mo></mrow></mrow><mo>}</mo></mrow></mrow></math><figcaption>F è l’insieme dei pixel che si tracciano (le forme scure). Con "Traccia le zone chiare" si usa il complementare.</figcaption></figure>
+<p><b>Fisso</b>: T è lo stesso per tutta l'immagine, il livello scelto (0–255).</p>
+<figure><math display="block"><mrow><msup><mi>T</mi><mo>∗</mo></msup><mo>=</mo><munder><mi mathvariant="normal">arg max</mi><mi>T</mi></munder><mspace width="0.3em"/><mrow><msub><mi>ω</mi><mn>0</mn></msub><mrow><mo>(</mo><mi>T</mi><mo>)</mo></mrow></mrow><mrow><msub><mi>ω</mi><mn>1</mn></msub><mrow><mo>(</mo><mi>T</mi><mo>)</mo></mrow></mrow><msup><mrow><mo>[</mo><mrow><msub><mi>μ</mi><mn>0</mn></msub><mrow><mo>(</mo><mi>T</mi><mo>)</mo></mrow></mrow><mo>−</mo><mrow><msub><mi>μ</mi><mn>1</mn></msub><mrow><mo>(</mo><mi>T</mi><mo>)</mo></mrow></mrow><mo>]</mo></mrow><mn>2</mn></msup></mrow></math><figcaption><b>Automatico (Otsu)</b>: sceglie il T che massimizza la varianza tra le due classi dell'istogramma (sfondo e forme). ω<sub>0</sub>, ω<sub>1</sub> sono le frazioni di pixel ai due lati di T e μ<sub>0</sub>, μ<sub>1</sub> le loro medie. Funziona bene quando l'istogramma ha due picchi netti.</figcaption></figure>
+<figure><math display="block"><mrow><mrow><mi>T</mi><mrow><mo>(</mo><mi>p</mi><mo>)</mo></mrow></mrow><mo>=</mo><munder><mo>∑</mo><mrow><mi>q</mi><mo>∈</mo><mrow><mi>B</mi><mrow><mo>(</mo><mi>p</mi><mo>)</mo></mrow></mrow></mrow></munder><mrow><mi>g</mi><mrow><mo>(</mo><mrow><mi>q</mi><mo>−</mo><mi>p</mi></mrow><mo>)</mo></mrow></mrow><mrow><mi>I</mi><mrow><mo>(</mo><mi>q</mi><mo>)</mo></mrow></mrow><mo>−</mo><mi>C</mi></mrow></math><figcaption><b>Adattivo</b>: T varia da punto a punto; è la media locale pesata con una finestra gaussiana g di b×b pixel, meno la costante C. Corregge l'illuminazione irregolare e le ombre delle scansioni. Un pixel si traccia se è almeno C livelli più scuro del suo intorno.</figcaption></figure>
+<h2>3. Pulizia dei bordi</h2>
+<figure><math display="block"><mrow><msup><mi>F</mi><mo>′</mo></msup><mo>=</mo><mrow><mo>(</mo><mi>F</mi><mo>∘</mo><mi>D</mi><mo>)</mo></mrow><mo>•</mo><mi>D</mi></mrow></math><figcaption>Apertura e poi chiusura morfologiche con un disco D di diametro 2r + 1 pixel: l’apertura elimina macchie e sporgenze di raggio minore di r, e la chiusura chiude buchi e fessure di quella dimensione.</figcaption></figure>
+<h2>4. Contorni</h2>
+<p>cv::findContours segue il bordo di ogni forma e di ogni buco (algoritmo di Suzuki e Abe). OpenCV restituisce i centri dei pixel di bordo, quindi ogni contorno si sposta di mezzo pixel verso lo sfondo per passare sul bordo reale dei pixel. Senza questo passo le forme si assottiglierebbero di un pixel e le linee di 1 px sparirebbero.</p>
+<figure><math display="block"><mrow><mi>A</mi><mo>=</mo><mfrac><mn>1</mn><mn>2</mn></mfrac><mrow><mo>|</mo><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>n</mi></munderover><mrow><mo>(</mo><msub><mi>x</mi><mi>i</mi></msub><msub><mi>y</mi><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>x</mi><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msub><msub><mi>y</mi><mi>i</mi></msub><mo>)</mo></mrow><mo>|</mo></mrow></mrow></math><figcaption>Area del contorno (formula di Gauss). Le forme e i buchi con A minore di "Ignora macchie" si scartano; se si scarta una forma, anche i suoi buchi.</figcaption></figure>
+<h2>5. Semplificazione</h2>
+<figure><math display="block"><mrow><mrow><mi>d</mi><mrow><mo>(</mo><mi>P</mi><mo>)</mo></mrow></mrow><mo>=</mo><mfrac><mrow><mo>|</mo><mrow><mo>(</mo><mi>B</mi><mo>−</mo><mi>A</mi><mo>)</mo></mrow><mo>×</mo><mrow><mo>(</mo><mi>P</mi><mo>−</mo><mi>A</mi><mo>)</mo></mrow><mo>|</mo></mrow><mrow><mo>‖</mo><mi>B</mi><mo>−</mo><mi>A</mi><mo>‖</mo></mrow></mfrac></mrow></math><figcaption>Algoritmo di Ramer–Douglas–Peucker (cv::approxPolyDP): tra due vertici A e B, se il punto intermedio più lontano dal segmento AB è a distanza d &gt; ε, si conserva e si ripete da ogni lato; altrimenti tutto il tratto si sostituisce con il segmento. Nessuna parte del contorno semplificato si allontana più di ε dall'originale. Se una forma sottile restasse con meno di 3 vertici, ε si dimezza finché non succede.</figcaption></figure>
+<h2>6. Curve e angoli</h2>
+<figure><math display="block"><mrow><msub><mi>θ</mi><mi>i</mi></msub><mo>=</mo><mi mathvariant="normal">arccos</mi><mfrac><mrow><mrow><mo>(</mo><msub><mi>V</mi><mi>i</mi></msub><mo>−</mo><msub><mi>V</mi><mrow><mi>i</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>)</mo></mrow><mo>·</mo><mrow><mo>(</mo><msub><mi>V</mi><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>V</mi><mi>i</mi></msub><mo>)</mo></mrow></mrow><mrow><mrow><mo>‖</mo><msub><mi>V</mi><mi>i</mi></msub><mo>−</mo><msub><mi>V</mi><mrow><mi>i</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>‖</mo></mrow><mrow><mo>‖</mo><msub><mi>V</mi><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>V</mi><mi>i</mi></msub><mo>‖</mo></mrow></mrow></mfrac></mrow></math><figcaption>Angolo di svolta in ogni vertice V<sub>i</sub> del poligono semplificato: 0° se il contorno prosegue dritto, 180° se torna su sé stesso.</figcaption></figure>
+<figure><math display="block"><mrow><mrow><mi>B</mi><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow></mrow><mo>=</mo><msup><mrow><mo>(</mo><mn>1</mn><mo>−</mo><mi>t</mi><mo>)</mo></mrow><mn>2</mn></msup><msub><mi>M</mi><mrow><mi>i</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>+</mo><mn>2</mn><mrow><mo>(</mo><mn>1</mn><mo>−</mo><mi>t</mi><mo>)</mo></mrow><mi>t</mi><msub><mi>V</mi><mi>i</mi></msub><mo>+</mo><msup><mi>t</mi><mn>2</mn></msup><msub><mi>M</mi><mi>i</mi></msub><mo>,</mo><mspace width="1em"/><msub><mi>M</mi><mi>i</mi></msub><mo>=</mo><mfrac><mrow><msub><mi>V</mi><mi>i</mi></msub><mo>+</mo><msub><mi>V</mi><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msub></mrow><mn>2</mn></mfrac><mo>,</mo><mspace width="1em"/><mi>t</mi><mo>∈</mo><mrow><mo>[</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo>]</mo></mrow></mrow></math><figcaption>Con "Curve morbide", il tracciato passa per i punti medi M<sub>i</sub> dei lati e ogni vertice V<sub>i</sub> con θ<sub>i</sub> ≤ θ<sub>angolo</sub> diventa il punto di controllo di una curva di Bézier quadratica. In M<sub>i</sub> le due curve vicine hanno la stessa tangente (la direzione del lato), quindi la giunzione è morbida. I vertici con θ<sub>i</sub> &gt; θ<sub>angolo</sub> si conservano come angoli vivi.</figcaption></figure>
+<h2>7. File SVG</h2>
+<p>Tutti i contorni formano un unico tracciato nero con la regola di riempimento pari-dispari (fill-rule="evenodd"): un punto è pieno se una semiretta che parte da esso taglia il tracciato un numero dispari di volte, per questo i buchi restano trasparenti. Le coordinate sono in pixel dell'immagine originale, con il pixel (i, j) che occupa il quadrato [i, i+1]×[j, j+1], scritte con due decimali. I "nodi" mostrati nel dialogo sono i tratti (rette e curve) del tracciato.</p>
+<h2>Parametri</h2><table><thead><tr><th>Parametro</th><th>Significato</th></tr></thead><tbody><tr><td>Metodo di soglia</td><td>Come si calcola T (passo 2).</td></tr><tr><td>Livello di soglia (metodo fisso)</td><td>T del metodo fisso, da 0 a 255.</td></tr><tr><td>Dimensione del blocco in px (adattivo)</td><td>b, lato della finestra del metodo adattivo (dispari). Deve essere più grande dei tratti: circa 2–5 volte il loro spessore.</td></tr><tr><td>Costante C (adattivo)</td><td>C, in livelli di grigio. Più alto = si tracciano solo i pixel nettamente più scuri del loro intorno (meno rumore).</td></tr><tr><td>Sfocatura preliminare (sigma, px)</td><td>σ della sfocatura preliminare (passo 1). Riduce il rumore e arrotonda le seghettature.</td></tr><tr><td>Traccia le zone chiare (inverti)</td><td>Traccia le zone chiare invece di quelle scure.</td></tr><tr><td>Risoluzione di lavoro</td><td>s (passo 1).</td></tr><tr><td>Pulizia dei bordi (px)</td><td>r del passo 3; 0 = nessuna pulizia.</td></tr><tr><td>Ignora macchie più piccole di (px²)</td><td>Area minima in px² (passo 4).</td></tr><tr><td>Semplificazione (px)</td><td>ε del passo 5, in pixel. 0 = nessuna semplificazione: l'SVG riproduce l'immagine binarizzata pixel per pixel.</td></tr><tr><td>Contorno</td><td>Poligoni o curve di Bézier (passo 6).</td></tr><tr><td>Mantieni angoli oltre (gradi)</td><td>θ<sub>angolo</sub> in gradi (passo 6). 0 = tutto angoli (poligono); 180 = tutto curve.</td></tr><tr><td>Sfondo bianco nell'SVG</td><td>Aggiunge un rettangolo bianco dietro il tracciato; altrimenti lo sfondo è trasparente.</td></tr></tbody></table>
+<p>Vedi anche: <a href="filter.morphology.html">Morfologia</a>, <a href="interpolation.html">Interpolazione e bordi</a></p>
+<footer>Lulumoy Studio · DonatellaTech · <a href="https://donatellatech.com/">donatellatech.com</a></footer>
+</body>
+</html>

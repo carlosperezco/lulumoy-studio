@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Interpolación y bordes · Lulumoy Studio</title>
+<style>
+:root { color-scheme: light dark; --acento: #2e7d32; --suave: #f3f8ee; --borde: #cfe3c0; }
+@media (prefers-color-scheme: dark) { :root { --acento: #8bd450; --suave: #1e261a; --borde: #3a4a30; } }
+body { font-family: "Segoe UI", system-ui, -apple-system, Roboto, Ubuntu, sans-serif; line-height: 1.55;
+       max-width: 860px; margin: 0 auto; padding: 1.5rem 1.25rem 3rem; }
+header { display: flex; align-items: center; gap: .75rem; border-bottom: 2px solid var(--acento); padding-bottom: .5rem; }
+header img { width: 44px; height: 44px; }
+header .marca { font-weight: 600; color: var(--acento); }
+nav { margin: .75rem 0 1.25rem; font-size: .95rem; }
+a { color: var(--acento); }
+h1 { font-size: 1.6rem; margin: 1rem 0 .5rem; }
+h2 { font-size: 1.2rem; margin-top: 1.6rem; color: var(--acento); }
+figure { background: var(--suave); border: 1px solid var(--borde); border-radius: 8px; margin: 1rem 0; padding: .6rem 1rem; }
+figure math { font-size: 1.2rem; overflow-x: auto; padding: .4rem 0; }
+figcaption { font-size: .95rem; }
+table { border-collapse: collapse; width: 100%; margin: .5rem 0; }
+th, td { border-bottom: 1px solid var(--borde); padding: .45rem .5rem; text-align: left; vertical-align: top; }
+th { color: var(--acento); }
+td:first-child { width: 34%; font-weight: 600; }
+.nota { border-left: 4px solid var(--acento); padding: .3rem .8rem; background: var(--suave); }
+ul.indice { columns: 2; padding-left: 1.2rem; }
+footer { margin-top: 2.5rem; font-size: .85rem; opacity: .75; }
+</style>
+</head>
+<body>
+<header><img src="../../assets/lulumoy_icon.png" alt=""/><span class="marca">Lulumoy Studio · Guía matemática</span></header>
+<nav><a href="index.html">← Índice</a></nav>
+<h1>Interpolación y bordes</h1>
+<p>Las transformaciones geométricas buscan cada píxel del resultado en una posición (x, y) de la imagen original que casi nunca es entera. La interpolación estima el valor en esa posición a partir de los píxeles vecinos.</p>
+<h2>Vecino más cercano</h2>
+<figure><math display="block"><mrow><mrow><mi>I</mi><mrow><mo>(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo>)</mo></mrow></mrow><mo>≈</mo><mrow><mi>I</mi><mrow><mo>(</mo><mrow><mi mathvariant="normal">round</mi><mrow><mo>(</mo><mi>x</mi><mo>)</mo></mrow></mrow><mo>,</mo><mrow><mi mathvariant="normal">round</mi><mrow><mo>(</mo><mi>y</mi><mo>)</mo></mrow></mrow><mo>)</mo></mrow></mrow></mrow></math><figcaption>Rápida y sin valores nuevos (útil en imágenes binarias), pero produce escalones.</figcaption></figure>
+<h2>Lineal (bilineal)</h2>
+<figure><math display="block"><mrow><mrow><mi>I</mi><mrow><mo>(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo>)</mo></mrow></mrow><mo>≈</mo><mrow><mo>(</mo><mn>1</mn><mo>−</mo><mi>a</mi><mo>)</mo></mrow><mrow><mo>(</mo><mn>1</mn><mo>−</mo><mi>b</mi><mo>)</mo></mrow><msub><mi>I</mi><mn>00</mn></msub><mo>+</mo><mi>a</mi><mrow><mo>(</mo><mn>1</mn><mo>−</mo><mi>b</mi><mo>)</mo></mrow><msub><mi>I</mi><mn>10</mn></msub><mo>+</mo><mrow><mo>(</mo><mn>1</mn><mo>−</mo><mi>a</mi><mo>)</mo></mrow><mi>b</mi><msub><mi>I</mi><mn>01</mn></msub><mo>+</mo><mi>a</mi><mi>b</mi><msub><mi>I</mi><mn>11</mn></msub></mrow></math><figcaption>a = x − ⌊x⌋, b = y − ⌊y⌋; I<sub>00</sub>…I<sub>11</sub> son los cuatro píxeles que rodean el punto. Es la opción por defecto: suave y rápida.</figcaption></figure>
+<h2>Cúbica (bicúbica)</h2>
+<figure><math display="block"><mrow><mrow><mi>w</mi><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow></mrow><mo>=</mo><mrow><mo>{</mo><mtable columnalign="left left"><mtr><mtd><mrow><mrow><mo>(</mo><mi>a</mi><mo>+</mo><mn>2</mn><mo>)</mo></mrow><msup><mrow><mo>|</mo><mi>t</mi><mo>|</mo></mrow><mn>3</mn></msup><mo>−</mo><mrow><mo>(</mo><mi>a</mi><mo>+</mo><mn>3</mn><mo>)</mo></mrow><msup><mrow><mo>|</mo><mi>t</mi><mo>|</mo></mrow><mn>2</mn></msup><mo>+</mo><mn>1</mn></mrow></mtd><mtd><mspace width="1em"/><mrow><mrow><mo>|</mo><mi>t</mi><mo>|</mo></mrow><mo>≤</mo><mn>1</mn></mrow></mtd></mtr><mtr><mtd><mrow><mi>a</mi><msup><mrow><mo>|</mo><mi>t</mi><mo>|</mo></mrow><mn>3</mn></msup><mo>−</mo><mn>5</mn><mi>a</mi><msup><mrow><mo>|</mo><mi>t</mi><mo>|</mo></mrow><mn>2</mn></msup><mo>+</mo><mn>8</mn><mi>a</mi><mrow><mo>|</mo><mi>t</mi><mo>|</mo></mrow><mo>−</mo><mn>4</mn><mi>a</mi></mrow></mtd><mtd><mspace width="1em"/><mrow><mn>1</mn><mo>&lt;</mo><mrow><mo>|</mo><mi>t</mi><mo>|</mo></mrow><mo>&lt;</mo><mn>2</mn></mrow></mtd></mtr><mtr><mtd><mn>0</mn></mtd><mtd><mspace width="1em"/><mtext>en otro caso / otherwise / altrimenti</mtext></mtd></mtr></mtable></mrow><mo>,</mo><mspace width="1em"/><mi>a</mi><mo>=</mo><mo>−</mo><mn>0.75</mn></mrow></math><figcaption>Núcleo cúbico de Keys con a = −0,75 (el de OpenCV), aplicado sobre los 4×4 píxeles vecinos: I ≈ Σ<sub>i,j</sub> w(x − x<sub>i</sub>) w(y − y<sub>j</sub>) I<sub>ij</sub>. Más nítida que la bilineal, aunque puede crear pequeños halos junto a los bordes.</figcaption></figure>
+<h2>Zonas vacías (bordes)</h2>
+<p>Cuando la posición buscada cae fuera de la imagen original: <b>Negro</b> usa 0; <b>Repetir el borde</b> usa el píxel más cercano del borde (aaa|abcd|ddd); <b>Espejo</b> refleja la imagen en el borde (cba|abcd|dcb).</p>
+<p>Véase también: <a href="edit.rotate.html">Rotar</a>, <a href="edit.affine.html">Transformación afín (3 puntos)</a>, <a href="edit.perspective.html">Transformación de perspectiva (4 puntos)</a></p>
+<footer>Lulumoy Studio · DonatellaTech · <a href="https://donatellatech.com/">donatellatech.com</a></footer>
+</body>
+</html>

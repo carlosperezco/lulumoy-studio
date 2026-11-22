@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Mathematical guide · Lulumoy Studio</title>
+<style>
+:root { color-scheme: light dark; --acento: #2e7d32; --suave: #f3f8ee; --borde: #cfe3c0; }
+@media (prefers-color-scheme: dark) { :root { --acento: #8bd450; --suave: #1e261a; --borde: #3a4a30; } }
+body { font-family: "Segoe UI", system-ui, -apple-system, Roboto, Ubuntu, sans-serif; line-height: 1.55;
+       max-width: 860px; margin: 0 auto; padding: 1.5rem 1.25rem 3rem; }
+header { display: flex; align-items: center; gap: .75rem; border-bottom: 2px solid var(--acento); padding-bottom: .5rem; }
+header img { width: 44px; height: 44px; }
+header .marca { font-weight: 600; color: var(--acento); }
+nav { margin: .75rem 0 1.25rem; font-size: .95rem; }
+a { color: var(--acento); }
+h1 { font-size: 1.6rem; margin: 1rem 0 .5rem; }
+h2 { font-size: 1.2rem; margin-top: 1.6rem; color: var(--acento); }
+figure { background: var(--suave); border: 1px solid var(--borde); border-radius: 8px; margin: 1rem 0; padding: .6rem 1rem; }
+figure math { font-size: 1.2rem; overflow-x: auto; padding: .4rem 0; }
+figcaption { font-size: .95rem; }
+table { border-collapse: collapse; width: 100%; margin: .5rem 0; }
+th, td { border-bottom: 1px solid var(--borde); padding: .45rem .5rem; text-align: left; vertical-align: top; }
+th { color: var(--acento); }
+td:first-child { width: 34%; font-weight: 600; }
+.nota { border-left: 4px solid var(--acento); padding: .3rem .8rem; background: var(--suave); }
+ul.indice { columns: 2; padding-left: 1.2rem; }
+footer { margin-top: 2.5rem; font-size: .85rem; opacity: .75; }
+</style>
+</head>
+<body>
+<header><img src="../../assets/lulumoy_icon.png" alt=""/><span class="marca">Lulumoy Studio · Mathematical guide</span></header>
+<h1>Mathematical guide</h1>
+<p>This guide explains what each Lulumoy Studio operation computes and how each parameter affects it. The formulas follow the definitions of the OpenCV functions the program uses. It also opens from the <b>Help</b> button of every parameter dialog and with F1.</p>
+<h2>Geometry</h2><ul class="indice"><li><a href="edit.rotate.html">Rotate</a></li><li><a href="edit.flip.html">Flip</a></li><li><a href="edit.crop.html">Crop</a></li><li><a href="edit.affine.html">Affine transform (3 points)</a></li><li><a href="edit.perspective.html">Perspective transform (4 points)</a></li><li><a href="interpolation.html">Interpolation and borders</a></li></ul>
+<h2>Format</h2><ul class="indice"><li><a href="format.html">Change format</a></li></ul>
+<h2>Filters</h2><ul class="indice"><li><a href="filter.gaussian.html">Gaussian blur</a></li><li><a href="filter.box.html">Box blur</a></li><li><a href="filter.median.html">Median blur</a></li><li><a href="filter.bilateral.html">Bilateral filter</a></li><li><a href="filter.sharpen.html">Sharpen</a></li><li><a href="filter.canny.html">Canny edges</a></li><li><a href="filter.threshold.html">Threshold</a></li><li><a href="filter.brightness_contrast.html">Brightness / contrast</a></li><li><a href="filter.morphology.html">Morphology</a></li></ul>
+<h2>Vectorization</h2><ul class="indice"><li><a href="vectorize.html">SVG vectorization</a></li></ul>
+<h2>Notation</h2><p>I(x, y) is the value of the pixel in column x and row y, with the origin at the top-left corner; I′ is the result. W×H is the image size and M the maximum value of its bit depth (255 for 8 bits, 65535 for 16 bits). ∗ denotes convolution. Unless stated otherwise, colour images are processed channel by channel.</p>
+<footer>Lulumoy Studio · DonatellaTech · <a href="https://donatellatech.com/">donatellatech.com</a></footer>
+</body>
+</html>
